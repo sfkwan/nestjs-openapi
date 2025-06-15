@@ -56,15 +56,15 @@ export class PaginationQueryDto extends DateSortFilterDto {
   @IsString({ each: true })
   $orderBy?: string[];
 
-  @ApiProperty({
-    description: 'Filters in JSON format',
-    example: {
-      userType: { ne: 'guest' },
-      age: { gt: 25 },
-      status: { eq: 'active' },
-    },
-  })
-  filter: Record<string, any>; // Parsed as a JSON object
+  // @ApiProperty({
+  //   description: 'Filters in JSON format',
+  //   example: {
+  //     userType: { ne: 'guest' },
+  //     age: { gt: 25 },
+  //     status: { eq: 'active' },
+  //   },
+  // })
+  // filter: Record<string, any>; // Parsed as a JSON object
 
   @IsOptional()
   @Type(() => Number)
