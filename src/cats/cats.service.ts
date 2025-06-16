@@ -1,5 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { ApiBadRequestResponse } from '@nestjs/swagger';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-cat.dto';
 import { UpdateProjectDto } from './dto/update-cat.dto';
 import { ProjectEntity } from './entities/project.entity';
@@ -14,7 +13,7 @@ export class CatsService {
       value: {
         ...createCatDto,
         createdDateTime: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
-        lastModifiedDateTime: new Date() as Date,
+        lastModifiedDateTime: new Date(),
       },
     });
   }
@@ -27,11 +26,11 @@ export class CatsService {
         breed: 'Persian',
         nicknames: ['Kit', 'Catster'],
         projectStatus: 'Draft',
-        createdDateTime: query.$startDate
-          ? new Date(query.$startDate)
+        createdDateTime: query.startDate
+          ? new Date(query.startDate)
           : new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
-        lastModifiedDateTime: query.$endDate
-          ? new Date(query.$endDate)
+        lastModifiedDateTime: query.endDate
+          ? new Date(query.endDate)
           : new Date(),
       },
       {
@@ -45,14 +44,14 @@ export class CatsService {
       },
     ];
 
-    var paginated: PaginatedDto<ProjectEntity> = {
+    let paginated: PaginatedDto<ProjectEntity> = {
       offset: 1,
       limit: 10,
       value: sampleCats,
     };
     console.log('query', query);
 
-    if (query.$count === true /* || query.$count === true */) {
+    if (query.count === true /* || query.$count === true */) {
       paginated = {
         total: sampleCats.length,
         ...paginated,
@@ -66,15 +65,15 @@ export class CatsService {
   }
 
   update(id: number, updateCatDto: UpdateProjectDto) {
-    throw new Error('This method is not implemented yet.');
+    throw new Error('Update exeception happended');
 
     return `This action updates a #${id} project`;
   }
 
   remove(id: number) {
     if (id > 10) {
-      throw new BadRequestException({
-        code: 'ID_TOO_LARGE',
+      throw new UnprocessableEntityException({
+        code: 'ID_TOO_LARGE_111',
         message: 'The provided id must not be greater than 10.',
         innererror: {
           code: 'PasswordTooShort',

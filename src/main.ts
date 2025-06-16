@@ -18,8 +18,14 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .addGlobalResponse({
       type: CommonExceptionDto,
-      description: 'Global error response',
+      description: 'Malformed request syntax',
       status: 400,
+    })
+    .addGlobalResponse({
+      type: CommonExceptionDto,
+      description:
+        'Request is well-formed but violates business rules or validation constraints.',
+      status: 422,
     })
     .addServer('http://localhost:3000', 'Local server')
     .addServer('https://api.example.com', 'Production server')

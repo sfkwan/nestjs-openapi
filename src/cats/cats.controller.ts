@@ -16,10 +16,9 @@ import {
   ApiCreatedResponse,
   ApiExtraModels,
   ApiOkResponse,
-  ApiQuery,
   ApiTags,
   getSchemaPath,
-  ApiBadRequestResponse,
+  ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { ProjectEntity } from './entities/project.entity';
 import { PaginatedDto } from './dto/paginated.dto';
@@ -90,7 +89,7 @@ export class CatsController {
   }
 
   @Delete(':projectId/restart')
-  @ApiBadRequestResponse({
+  @ApiUnprocessableEntityResponse({
     description: 'The provided id must not be greater than 10.',
     type: CommonExceptionDto,
     schema: {

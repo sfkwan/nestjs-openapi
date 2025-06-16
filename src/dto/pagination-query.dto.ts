@@ -9,7 +9,7 @@ import {
   IsBoolean,
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class DateSortFilterDto {
   @ApiPropertyOptional({
@@ -18,7 +18,7 @@ export class DateSortFilterDto {
   })
   @IsOptional()
   @IsDateString()
-  $startDate?: string;
+  startDate?: string;
 
   @ApiPropertyOptional({
     description: 'End date filter (ISO 8601)',
@@ -26,7 +26,7 @@ export class DateSortFilterDto {
   })
   @IsOptional()
   @IsDateString()
-  $endDate?: string;
+  endDate?: string;
 }
 
 export class PaginationQueryDto extends DateSortFilterDto {
@@ -40,7 +40,7 @@ export class PaginationQueryDto extends DateSortFilterDto {
     type: String,
   })
   @IsString()
-  $projectStatus: string;
+  projectStatus: string;
 
   @IsArray()
   @IsString({ each: true })
@@ -54,7 +54,7 @@ export class PaginationQueryDto extends DateSortFilterDto {
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  $orderBy?: string[];
+  orderBy?: string[];
 
   // @ApiProperty({
   //   description: 'Filters in JSON format',
@@ -79,7 +79,7 @@ export class PaginationQueryDto extends DateSortFilterDto {
     maximum: 500,
     default: 0,
   })
-  $offset?: number = 0;
+  offset?: number = 0;
 
   @IsOptional()
   @Type(() => Number)
@@ -93,7 +93,7 @@ export class PaginationQueryDto extends DateSortFilterDto {
     maximum: 50,
     default: 10,
   })
-  $limit?: number = 10;
+  limit?: number = 10;
 
   @IsOptional()
   @Transform(({ value }) => {
@@ -108,5 +108,5 @@ export class PaginationQueryDto extends DateSortFilterDto {
     example: true,
     default: false,
   })
-  $count?: boolean = false;
+  count?: boolean = false;
 }

@@ -18,20 +18,24 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    let errorResponse: CommonExceptionDto = {
-      code: 'INTERNAL_ERROR',
-      message: 'Internal server error',
+    const errorResponse: CommonExceptionDto = {
+      error: {
+        code: 'INTERNAL_ERROR',
+        message: 'Internal server error',
+      },
     };
 
     if (exception instanceof HttpException) {
       const res = exception.getResponse();
+      console.log(res);
+
       if (typeof res === 'object' && res !== null) {
-        errorResponse = { ...errorResponse, ...res };
+        errorResponse.error = { ...errorResponse.error, ...res };
       } else if (typeof res === 'string') {
-        errorResponse.message = res;
+        errorResponse.error.message = res;
       }
     } else if (exception instanceof Error) {
-      errorResponse.message = exception.message;
+      errorResponse.error.message = exception.message;
     }
 
     response.status(status).json(errorResponse);

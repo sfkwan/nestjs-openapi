@@ -1,14 +1,12 @@
 import { ApiProperty, ApiExtraModels } from '@nestjs/swagger';
 import { BaseExceptionDto } from './base-exception.dto';
 
-@ApiExtraModels()
-export class CommonExceptionDto extends BaseExceptionDto {
-  // [key: string]: any;
-
+class ErrorObject extends BaseExceptionDto {
   @ApiProperty({
     required: false,
     type: [Object],
-    description: 'Additional error details or fields',
+    description:
+      'Additional error details or fields.  This is not strictly required, but can be used to provide more context about the error.',
     example: [
       {
         field: 'details',
@@ -27,11 +25,21 @@ export class CommonExceptionDto extends BaseExceptionDto {
   @ApiProperty({
     required: false,
     type: Object,
-    description: 'Inner error object',
+    description:
+      'Inner error object.  This is not strictly required, but can provide additional context about the error.',
     example: {
       code: 'PasswordTooShort',
       minLength: 6,
     },
   })
   innerError?: any;
+}
+
+@ApiExtraModels()
+export class CommonExceptionDto {
+  @ApiProperty({
+    description: 'Error object containing exception details',
+    type: () => ErrorObject,
+  })
+  error: ErrorObject;
 }

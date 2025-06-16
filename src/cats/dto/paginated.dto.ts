@@ -1,7 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class PaginatedDto<TData> {
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: 'integer',
     example: 100,
     minimum: 0,
