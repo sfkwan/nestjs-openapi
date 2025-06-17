@@ -4,11 +4,13 @@ import { UpdateProjectDto } from './dto/update-cat.dto';
 import { ProjectEntity } from './entities/project.entity';
 import { PaginatedDto } from './dto/paginated.dto';
 import { PaginationQueryDto } from '../dto/pagination-query.dto';
-import { BaseDto } from './dto/base.dto';
+import { SingleObjectDto } from './dto/singleObject.dto';
 
 @Injectable()
 export class CatsService {
-  create(createCatDto: CreateProjectDto): Promise<BaseDto<ProjectEntity>> {
+  create(
+    createCatDto: CreateProjectDto,
+  ): Promise<SingleObjectDto<ProjectEntity>> {
     return Promise.resolve({
       value: {
         ...createCatDto,

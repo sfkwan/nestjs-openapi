@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class BaseDto<TData = any> {
+export class SingleObjectDto<TData = any> {
   @ApiProperty({ description: 'The main value or entity returned by the API.' })
   value: TData;
 }

@@ -24,11 +24,11 @@ import { ProjectEntity } from './entities/project.entity';
 import { PaginatedDto } from './dto/paginated.dto';
 import { PaginationQueryDto } from '../dto/pagination-query.dto';
 import { CommonExceptionDto } from '../common/entities/common-exception.entity';
-import { BaseDto } from './dto/base.dto';
+import { SingleObjectDto } from './dto/singleObject.dto';
 
 @Controller('projects')
 @ApiTags('projects')
-@ApiExtraModels(PaginatedDto, BaseDto, ProjectEntity)
+@ApiExtraModels(PaginatedDto, SingleObjectDto, ProjectEntity)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
@@ -38,7 +38,7 @@ export class CatsController {
     description: 'The record has been successfully created.',
     schema: {
       allOf: [
-        { $ref: getSchemaPath(BaseDto) },
+        { $ref: getSchemaPath(SingleObjectDto) },
         {
           properties: {
             value: { $ref: getSchemaPath(ProjectEntity) },
@@ -49,7 +49,7 @@ export class CatsController {
   })
   async create(
     @Body() createCatDto: CreateProjectDto,
-  ): Promise<BaseDto<ProjectEntity>> {
+  ): Promise<SingleObjectDto<ProjectEntity>> {
     return this.catsService.create(createCatDto);
   }
 
